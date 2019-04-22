@@ -7,7 +7,7 @@ This tool is also used to evaluate the submissions in the Codalab site for the <
 ### Installation
 ```bash
 # Download the code
-git clone https://github.com/davisvideochallenge/davis2017-evaluation.git && cd davis2017-challenges
+git clone https://github.com/davisvideochallenge/davis2017-evaluation.git && cd davis2017-evaluation
 # Install it - Python 3.6 or higher required
 python setup.py install
 ```
