@@ -18,6 +18,8 @@ Once the evaluation has finished, two different CSV files will be generated insi
 - `global_results-SUBSET.csv` contains the overall results for a certain `SUBSET`. 
 - `per-sequence_results-SUBSET.csv` contain the per sequence results for a certain `SUBSET`.
 
+If a folder that contains the previous files is evaluated again, the results will be read from the CSV files instead of recomputing them.
+
 ## Evaluate DAVIS 2017 Semi-supervised
 In order to evaluate your semi-supervised method in DAVIS 2017, execute the following command substituting `results/semi-supervised/osvos` by the folder path that contains your results:
 ```bash
