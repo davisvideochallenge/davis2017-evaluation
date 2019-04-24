@@ -7,7 +7,7 @@ This tool is also used to evaluate the submissions in the Codalab site for the <
 ### Installation
 ```bash
 # Download the code
-git clone https://github.com/davisvideochallenge/davis2017-challenges.git && cd davis2017-challenges
+git clone https://github.com/davisvideochallenge/davis2017-evaluation.git && cd davis2017-evaluation
 # Install it - Python 3.6 or higher required
 python setup.py install
 ```
@@ -17,6 +17,8 @@ Otherwise, you can specify the path in every call using using the flag `--davis_
 Once the evaluation has finished, two different CSV files will be generated inside the folder with the results: 
 - `global_results-SUBSET.csv` contains the overall results for a certain `SUBSET`. 
 - `per-sequence_results-SUBSET.csv` contain the per sequence results for a certain `SUBSET`.
+
+If a folder that contains the previous files is evaluated again, the results will be read from the CSV files instead of recomputing them.
 
 ## Evaluate DAVIS 2017 Semi-supervised
 In order to evaluate your semi-supervised method in DAVIS 2017, execute the following command substituting `results/semi-supervised/osvos` by the folder path that contains your results:
