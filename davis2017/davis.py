@@ -9,6 +9,7 @@ class DAVIS(object):
     SUBSET_OPTIONS = ['train', 'val', 'test-dev', 'test-challenge']
     TASKS = ['semi-supervised', 'unsupervised']
     DATASET_WEB = 'https://davischallenge.org/davis2017/code.html'
+    VOID_LABEL = 255
 
     def __init__(self, root, task='unsupervised', subset='val', sequences='all', resolution='480p', codalab=False):
         """
@@ -73,8 +74,6 @@ class DAVIS(object):
         obj_id = []
         for i, obj in enumerate(self.sequences[sequence][obj_type]):
             all_objs[i, ...] = np.array(Image.open(obj))
-            if obj_type == 'masks':
-                all_objs[i, all_objs[i, ...] == 255] = 0
             obj_id.append(''.join(obj.split('/')[-1].split('.')[:-1]))
         return all_objs, obj_id
 
@@ -83,12 +82,20 @@ class DAVIS(object):
 
     def get_all_masks(self, sequence, separate_objects_masks=False):
         masks, masks_id = self._get_all_elements(sequence, 'masks')
+        masks_void = np.zeros_like(masks)
+
+        # Separate void and object masks
+        for i in range(masks.shape[0]):
+            masks_void[i, ...] = masks[i, ...] == 255
+            masks[i, masks[i, ...] == 255] = 0
+
         if separate_objects_masks:
             num_objects = int(np.max(masks[0, ...]))
             tmp = np.ones((num_objects, *masks.shape))
             tmp = tmp * np.arange(1, num_objects + 1)[:, None, None, None]
             masks = (tmp == masks[None, ...])
-        return masks > 0, masks_id
+            masks = masks > 0
+        return masks, masks_void, masks_id
 
     def get_sequences(self):
         for seq in self.sequences:
@@ -103,11 +110,11 @@ if __name__ == '__main__':
 
     for s in subsets:
         dataset = DAVIS(root='/home/csergi/scratch2/Databases/DAVIS2017_private', subset=s)
-        for sequence in dataset.get_sequences():
-            g = dataset.get_frames(sequence)
+        for seq in dataset.get_sequences():
+            g = dataset.get_frames(seq)
             img, mask = next(g)
             plt.subplot(2, 1, 1)
-            plt.title(sequence)
+            plt.title(seq)
             plt.imshow(img)
             plt.subplot(2, 1, 2)
             plt.imshow(mask)

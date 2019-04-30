@@ -186,7 +186,7 @@ if __name__ == '__main__':
     results = Results(root_dir='examples/osvos')
     # Test timing F measure
     for seq in dataset.get_sequences():
-        all_gt_masks, all_masks_id = dataset.get_all_masks(seq, True)
+        all_gt_masks, _, all_masks_id = dataset.get_all_masks(seq, True)
         all_gt_masks, all_masks_id = all_gt_masks[:, 1:-1, :, :], all_masks_id[1:-1]
         all_res_masks = results.read_masks(seq, all_masks_id)
         f_metrics_res = np.zeros(all_gt_masks.shape[:2])
