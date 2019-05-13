@@ -26,9 +26,12 @@ class DAVISEvaluation(object):
 
     @staticmethod
     def _evaluate_semisupervised(all_gt_masks, all_res_masks, all_void_masks, metric):
-        if all_res_masks.shape[0] != all_gt_masks.shape[0]:
+        if all_res_masks.shape[0] > all_gt_masks.shape[0]:
             sys.stdout.write("\nIn your PNG files there is an index higher than the number of objects in the sequence!")
             sys.exit()
+        elif all_res_masks.shape[0] < all_gt_masks.shape[0]:
+            zero_padding = np.zeros((all_gt_masks.shape[0] - all_res_masks.shape[0], *all_res_masks.shape[1:]))
+            all_res_masks = np.concatenate([all_res_masks, zero_padding], axis=0)
         j_metrics_res, f_metrics_res = np.zeros(all_gt_masks.shape[:2]), np.zeros(all_gt_masks.shape[:2])
         for ii in range(all_gt_masks.shape[0]):
             if 'J' in metric:
