@@ -2,7 +2,7 @@
 
 This package is used to evaluate semi-supervised and unsupervised video multi-object segmentation models for the <a href="https://davischallenge.org/davis2017/code.html" target="_blank">DAVIS 2017</a> dataset. 
 
-This tool is also used to evaluate the submissions in the Codalab site for the <a href="https://competitions.codalab.org/competitions/21650" target="_blank">Semi-supervised DAVIS Challenge</a> and the <a href="https://competitions.codalab.org/competitions/21739" target="_blank">Unsupervised DAVIS Challenge</a>
+This tool is also used to evaluate the submissions in the Codalab site for the <a href="https://competitions.codalab.org/competitions/20516" target="_blank">Semi-supervised DAVIS Challenge</a> and the <a href="https://competitions.codalab.org/competitions/20515" target="_blank">Unsupervised DAVIS Challenge</a>
 
 ### Installation
 ```bash
