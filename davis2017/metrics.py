@@ -15,13 +15,13 @@ def db_eval_iou(annotation, segmentation, void_pixels=None):
     """
     assert annotation.shape == segmentation.shape, \
         f'Annotation({annotation.shape}) and segmentation:{segmentation.shape} dimensions do not match.'
-    annotation = annotation.astype(np.bool)
-    segmentation = segmentation.astype(np.bool)
+    annotation = annotation.astype(bool)
+    segmentation = segmentation.astype(bool)
 
     if void_pixels is not None:
         assert annotation.shape == void_pixels.shape, \
             f'Annotation({annotation.shape}) and void pixels:{void_pixels.shape} dimensions do not match.'
-        void_pixels = void_pixels.astype(np.bool)
+        void_pixels = void_pixels.astype(bool)
     else:
         void_pixels = np.zeros_like(segmentation)
 
@@ -70,9 +70,9 @@ def f_measure(foreground_mask, gt_mask, void_pixels=None, bound_th=0.008):
     """
     assert np.atleast_3d(foreground_mask).shape[2] == 1
     if void_pixels is not None:
-        void_pixels = void_pixels.astype(np.bool)
+        void_pixels = void_pixels.astype(bool)
     else:
-        void_pixels = np.zeros_like(foreground_mask).astype(np.bool)
+        void_pixels = np.zeros_like(foreground_mask).astype(bool)
 
     bound_pix = bound_th if bound_th >= 1 else \
         np.ceil(bound_th * np.linalg.norm(foreground_mask.shape))
@@ -134,7 +134,7 @@ def _seg2bmap(seg, width=None, height=None):
      January 2003
     """
 
-    seg = seg.astype(np.bool)
+    seg = seg.astype(bool)
     seg[seg > 0] = 1
 
     assert np.atleast_3d(seg).shape[2] == 1

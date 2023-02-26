@@ -17,4 +17,4 @@ setup(
         'scikit-learn>=0.18',
         'scipy>=1.0.0',
         'tqdm>=4.28.1'
-    ])
+    ],packages=['davis2017'])
